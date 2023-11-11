@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { getFoodPrint, getFoodVisorData } from "./api/utils";
+import UploadImagePage from "./pages/UploadImagePage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<Home />} />
+        <Route path="/uploadImage" element={<UploadImagePage />} />
       </Routes>
     </BrowserRouter>
   );
