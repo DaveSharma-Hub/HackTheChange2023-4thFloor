@@ -85,7 +85,21 @@ const UploadImagePage = () => {
     const data = {
       predicted: {
         predictedLabel,
-        topScores,
+        topScores
+        // :[
+        //   {
+        //     label:'Food1',
+        //     score:1.0
+        //   },
+        //   {
+        //     label:'Food2',
+        //     score:0.45 
+        //   },
+        //   {
+        //     label:'Food3',
+        //     score:0.65
+        //   }
+        // ],
       },
       foodprint,
       betterFootprints : [
@@ -295,16 +309,12 @@ const UploadImagePage = () => {
       ) : (
         <div>
           <Container style={{ marginTop: "100px" }}>
-            <Row className="justify-content-md-center">
-              <Col xs="6" md="6" lg="6" style={{ marginTop: "50px" }}>
-                <img src={imgSrc} style={{ borderRadius: "20px" }} />
-              </Col>
+            <Results data={results} imgSrc={imgSrc}/>
+            {/* <Row className="justify-content-md-center">
               <Col xs="12" md="6" lg="6" style={{ marginTop: "50px" }}>
-                <div style={{ height: "80vh", overflowY: "auto" }}>
-                  <Results data={results} />
-                </div>
+               
               </Col>
-            </Row>
+            </Row> */}
           </Container>
         </div>
       )}
