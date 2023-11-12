@@ -60,13 +60,51 @@ async function getFoodMLData(imageSrc){
                 imagePath:imageSrc
             }
         };
-        const d = await axios.request(options);
-        console.log(d);
+        // const res = await axios.request(options);
+        const score = [11,19,2.4,491,122];
+        const label = ['one','g','dede','fef','jjf'];
+        const res = {
+            data:[
+                {
+                    predictedLabel:'monkeys',
+                    score:score
+                },
+                [...label]
+            ]
+        }
+        if(res.data){
+            const d1 = res.data[0];
+            const d2 = res.data[1];
+            const topScores = getTopScores(d1.score, d2);
+            return {
+                predictedLabel:d1.predictedLabel,
+                topScores: topScores
+            }
+        }
     }catch(e){
         console.log(e);
     }
 }
 
+const getTopScores = (scores, array) => {
+    const scoreIndexArr = [];
+    for(let i=0;i<scores.length;i++){
+        scoreIndexArr.push({
+            score:scores[i],
+            index:i
+        });
+    }
+
+    const sorted = scoreIndexArr.sort((a,b)=>b.score-a.score);
+    const res = [];
+    for(let i=0;i<3 && i<sorted.length;i++){
+        res.push({
+            label:array[sorted[i].index],
+            score:sorted[i].score
+        });
+    }
+    return res;
+}
 
 export {
     getFoodVisorData,

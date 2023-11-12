@@ -6,12 +6,35 @@ import Card from 'react-bootstrap/Card';
 // eslint-disable-next-line react/prop-types
 export default function Results({data}){
     return(
-        <Container>
+        <Container style={{width:'50vw'}}>
             <Row className="justify-content-md-center">
-                <Col xs="6" md="6" lg="6">
+                <Col xs="3" md="6" lg="6">
+                    {    
+                        <h2>
+
+                            {data.predicted?.predictedLabel}
+                        </h2>
+                    }
+                    {
+
+                        data.predicted?.topScores?.map(({label,score}, index)=>{
+                            return(
+                                <Card key={index} style={{ width: '18rem' }}>
+                                    <Card.Body>
+                                        <Card.Title>Prediction: {label}</Card.Title>
+                                        <Card.Text>
+                                            Confidence: {score}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            )
+                        })
+                    }
+                </Col>
+                <Col xs="3" md="6" lg="6">
                     {
                         // eslint-disable-next-line react/prop-types
-                        data?.map(({category, footprint, group, name, rating_quality},index)=>{
+                        data.foodprint?.map(({category, footprint, group, name, rating_quality},index)=>{
                             return (
                                 <Card key={index} style={{ width: '18rem' }}>
                                     <Card.Body>

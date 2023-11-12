@@ -38,41 +38,48 @@ const UploadImagePage = () => {
     setLoading(true);
     setProgressStatement('Receiving image characteristics');
     await new Promise((res)=>{setTimeout(res,1000)});
-    const imageD = await getFoodMLData(imgSrc);
-    console.log(imageD);
+    const {predictedLabel, topScores} = await getFoodMLData(imgSrc);
+    console.log(predictedLabel, topScores);
     setProgressStatement('Calculating emission');
     //const data = await getFoodPrint('bread');
     await new Promise((res)=>{setTimeout(res,1000)});
-    const data = [
-        {
-            category:'Grain',
-            footprint:1.23,
-            group:'Grains', 
-            name:'Bread', 
-            rating_quality:1
+    const data = {
+        predicted: {
+            predictedLabel:predictedLabel,
+            topScores:topScores
         },
-        {
-            category:'Grain',
-            footprint:1.23,
-            group:'Grains', 
-            name:'Bread', 
-            rating_quality:1
-        },
-        {
-            category:'Grain',
-            footprint:1.23,
-            group:'Grains', 
-            name:'Bread', 
-            rating_quality:1
-        },
-        {
-            category:'Grain',
-            footprint:1.23,
-            group:'Grains', 
-            name:'Bread', 
-            rating_quality:1
-        },
-    ]
+        foodprint: [
+            {
+                category:'Grain',
+                footprint:1.23,
+                group:'Grains', 
+                name:'Bread', 
+                rating_quality:1
+            },
+            {
+                category:'Grain',
+                footprint:1.23,
+                group:'Grains', 
+                name:'Bread', 
+                rating_quality:1
+            },
+            {
+                category:'Grain',
+                footprint:1.23,
+                group:'Grains', 
+                name:'Bread', 
+                rating_quality:1
+            },
+            {
+                category:'Grain',
+                footprint:1.23,
+                group:'Grains', 
+                name:'Bread', 
+                rating_quality:1
+            },
+        ]
+    }
+        
     setResults(data);
     setLoading(false);
   }
@@ -134,14 +141,21 @@ const UploadImagePage = () => {
                 </Row>
             </Container>
             </div>
-            : null
+            :<div style={{height:'40vh'}}></div>
         }
         <Container>
-            <Col>
-                <Button onClick={()=>{setUseCamera(true)}}>Upload from camera</Button>
-                <input type="file" id="myFile" name="filename" onChange={handleUploadImageFromLocal}/>
-                <Button onClick={()=>{handleUploadImage()}}>Continue</Button>
-            </Col>
+            <Row className="justify-content-md-center">
+                <Col>
+                    <Button variant="outline-primary" onClick={()=>{setUseCamera(true)}}>Upload from camera</Button>
+                    <input type="file" id="myFile" name="filename" onChange={handleUploadImageFromLocal}/>
+                    {
+                        imgSrc 
+                        ?
+                        <Button onClick={()=>{handleUploadImage()}}>Continue</Button>
+                        : null
+                    }
+                </Col>
+            </Row>
         </Container>
       </div>
       : 
@@ -164,7 +178,7 @@ const UploadImagePage = () => {
       <div>
         <Container style={{ marginTop: "100px" }}>
             <Row className="justify-content-md-center">
-                <Col xs="12" md="6" lg="6" style={{ marginTop: "50px" }}>
+                <Col xs="6" md="6" lg="6" style={{ marginTop: "50px" }}>
                     <img src={imgSrc} style={{borderRadius:'20px'}}/>
                 </Col>
                 <Col xs="12" md="6" lg="6" style={{ marginTop: "50px" }}>
