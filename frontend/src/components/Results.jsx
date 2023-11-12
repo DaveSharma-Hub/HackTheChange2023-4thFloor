@@ -6,9 +6,9 @@ import Card from 'react-bootstrap/Card';
 // eslint-disable-next-line react/prop-types
 export default function Results({data}){
     return(
-        <Container style={{ marginTop: "100px" }}>
+        <Container>
             <Row className="justify-content-md-center">
-                <Col xs="12" md="6" lg="6" style={{ marginTop: "100px" }}>
+                <Col xs="6" md="6" lg="6">
                     {
                         // eslint-disable-next-line react/prop-types
                         data?.map(({category, footprint, group, name, rating_quality},index)=>{

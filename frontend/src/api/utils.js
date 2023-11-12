@@ -48,7 +48,28 @@ async function getFoodPrint(foodItem){
     }
 }
 
+async function getFoodMLData(imageSrc){
+    try{
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:60266/predict',
+            headers: {
+                'Content-Type':'application/json',
+            },
+            data:{
+                imagePath:imageSrc
+            }
+        };
+        const d = await axios.request(options);
+        console.log(d);
+    }catch(e){
+        console.log(e);
+    }
+}
+
+
 export {
     getFoodVisorData,
-    getFoodPrint
+    getFoodPrint,
+    getFoodMLData
 }
