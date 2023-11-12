@@ -135,6 +135,16 @@ const UploadImagePage = () => {
                       }}
                     >
                       <Button
+                        className="bg-secondary"
+                        style={{
+                          margin: "auto",
+                          marginTop: "25px",
+                          marginBottom: "25px",
+                          display: "block",
+                          textAlign: "center",
+                          width: "50%",
+                          height: "200%",
+                        }}
                         onClick={() => {
                           setVideoConstraints({
                             ...videoConstraints,
@@ -147,7 +157,20 @@ const UploadImagePage = () => {
                       >
                         Flip Camera
                       </Button>
-                      <Button onClick={capture}>Capture Photo</Button>
+                      <Button
+                        style={{
+                          margin: "auto",
+                          marginTop: "25px",
+                          marginBottom: "25px",
+                          display: "block",
+                          textAlign: "center",
+                          width: "50%",
+                          height: "200%",
+                        }}
+                        onClick={capture}
+                      >
+                        Capture Photo
+                      </Button>
                     </Col>
                     {imgSrc && <img src={imgSrc} alt="img" />}
                   </Col>
@@ -159,21 +182,45 @@ const UploadImagePage = () => {
           )}
           <Container>
             <Row className="justify-content-md-center">
-              <Col>
+              <Col xs="12" md="12" lg="12">
                 <Button
                   variant="outline-primary"
+                  style={{
+                    margin: "auto",
+                    display: "block",
+                    textAlign: "center",
+                    width: "500px",
+                    height: "100px",
+                  }}
                   onClick={() => {
                     setUseCamera(true);
                   }}
                 >
-                  Upload from camera
+                  Use Camera
                 </Button>
-                <input
-                  type="file"
-                  id="myFile"
-                  name="filename"
-                  onChange={handleUploadImageFromLocal}
-                />
+              </Col>
+              <Col xs="12" md="12" lg="12">
+                <Button
+                  variant="outline-primary"
+                  style={{
+                    margin: "auto",
+                    marginBottom: "50px",
+                    display: "block",
+                    textAlign: "center",
+                    width: "500px",
+                    height: "100px",
+                    marginTop: "50px",
+                  }}
+                >
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    id="myFile"
+                    name="filename"
+                    onChange={handleUploadImageFromLocal}
+                  />
+                  <label for="myFile">Upload from Gallery</label>
+                </Button>
                 {imgSrc ? (
                   <Button
                     onClick={() => {
