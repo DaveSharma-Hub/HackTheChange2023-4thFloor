@@ -16,6 +16,7 @@ import { LinearProgress, Stack } from "@mui/material";
 
 const UploadImagePage = () => {
   const webcamRef = useRef(null);
+  const bottomEnd = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
   const [videoConstraints, setVideoConstraints] = useState({
     width: 550,
@@ -153,15 +154,16 @@ const UploadImagePage = () => {
                       }}
                     >
                       <Button
-                        className="bg-secondary"
+                        className="bg-inherit"
                         style={{
                           margin: "auto",
                           marginTop: "25px",
                           marginBottom: "25px",
                           display: "block",
                           textAlign: "center",
-                          width: "50%",
+                          width: "30%",
                           height: "200%",
+                          borderRadius:'20px'
                         }}
                         onClick={() => {
                           setVideoConstraints({
@@ -176,6 +178,7 @@ const UploadImagePage = () => {
                         Flip Camera
                       </Button>
                       <Button
+                        variant="outline-info"
                         style={{
                           margin: "auto",
                           marginTop: "25px",
@@ -184,13 +187,27 @@ const UploadImagePage = () => {
                           textAlign: "center",
                           width: "50%",
                           height: "200%",
+                          borderRadius:'20px'
                         }}
                         onClick={capture}
                       >
                         Capture Photo
                       </Button>
+                    <Button
+                      style={{
+                        margin: "auto",
+                        marginTop: "25px",
+                        marginBottom: "25px",
+                        display: "block",
+                        textAlign: "center",
+                        width: "15%",
+                        borderRadius:'20px'
+                      }}
+                      onClick={()=>{bottomEnd.current?.scrollIntoView({ behavior: "smooth" })}}
+                    >
+                      Preview
+                    </Button>
                     </Col>
-                    {imgSrc && <img src={imgSrc} alt="img" />}
                   </Col>
                 </Row>
               </Container>
@@ -209,6 +226,7 @@ const UploadImagePage = () => {
                     textAlign: "center",
                     width: "500px",
                     height: "100px",
+                    borderRadius:'20px'
                   }}
                   onClick={() => {
                     setUseCamera(true);
@@ -219,7 +237,7 @@ const UploadImagePage = () => {
               </Col>
               <Col xs="12" md="12" lg="12">
                 <Button
-                  variant="outline-primary"
+                  variant="outline-secondary"
                   style={{
                     margin: "auto",
                     marginBottom: "50px",
@@ -228,6 +246,7 @@ const UploadImagePage = () => {
                     width: "500px",
                     height: "100px",
                     marginTop: "50px",
+                    borderRadius:'20px'
                   }}
                 >
                   <input
@@ -239,15 +258,22 @@ const UploadImagePage = () => {
                   />
                   <label for="myFile">Upload from Gallery</label>
                 </Button>
-                {imgSrc ? (
-                  <Button
-                    onClick={() => {
-                      handleUploadImage();
-                    }}
-                  >
-                    Continue
-                  </Button>
-                ) : null}
+              </Col>
+              <Col xs="6" md="6" lg="6">
+                <div style={{display:'flex'}}>
+                  <div>
+                  {imgSrc && <img src={imgSrc} alt="img" style={{width:'50vw'}} ref={bottomEnd}/>}
+                  </div>
+                  {imgSrc ? (
+                    <Button
+                      onClick={() => {
+                        handleUploadImage();
+                      }}
+                    >
+                      Continue
+                    </Button>
+                  ) : null}
+                </div>
               </Col>
             </Row>
           </Container>
