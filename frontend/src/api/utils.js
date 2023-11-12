@@ -30,10 +30,10 @@ async function getFoodVisorData(){
 
 }
 
-async function getFoodPrint(){
+async function getFoodPrint(foodItem){
     const options = {
         method: 'GET',
-        url: 'https://foodprint.p.rapidapi.com/api/foodprint/name/curry',
+        url: `https://foodprint.p.rapidapi.com/api/foodprint/name/${foodItem}`,
         headers: {
             'X-RapidAPI-Key': '43568b5614msh0a3cf45f74913b5p141c47jsn58c99c0ad788',
             'X-RapidAPI-Host': 'foodprint.p.rapidapi.com'
@@ -42,7 +42,7 @@ async function getFoodPrint(){
 
     try {
         const response = await axios.request(options);
-        return response;
+        return response.data;
     } catch (error) {
         console.error(error);
     }
