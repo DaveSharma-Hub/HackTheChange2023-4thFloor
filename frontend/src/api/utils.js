@@ -34,7 +34,7 @@ async function getFoodPrint(foodItem) {
     method: "GET",
     url: `https://foodprint.p.rapidapi.com/api/foodprint/name/${foodItem}`,
     headers: {
-      "X-RapidAPI-Key": "43568b5614msh0a3cf45f74913b5p141c47jsn58c99c0ad788",
+      "X-RapidAPI-Key": "c4d0f027bcmsh049640e4c64878ep193f69jsnd832dc0c20a7",
       "X-RapidAPI-Host": "foodprint.p.rapidapi.com",
     },
   };
@@ -59,11 +59,39 @@ async function getFoodMLData(imageSrc) {
       },
       data: imageSrc,
     };
-    const d = await axios.request(options);
-    console.log(d);
+    const res = await axios.request(options);
+    if (res.data) {
+      const d1 = res.data[0];
+      const d2 = res.data[1];
+      const topScores = getTopScores(d1.score, d2);
+      return {
+        predictedLabel: d1.predictedLabel,
+        topScores: topScores,
+      };
+    }
   } catch (e) {
     console.log(e);
   }
 }
+
+const getTopScores = (scores, array) => {
+  const scoreIndexArr = [];
+  for (let i = 0; i < scores.length; i++) {
+    scoreIndexArr.push({
+      score: scores[i],
+      index: i,
+    });
+  }
+
+  const sorted = scoreIndexArr.sort((a, b) => b.score - a.score);
+  const res = [];
+  for (let i = 0; i < 3 && i < sorted.length; i++) {
+    res.push({
+      label: array[sorted[i].index],
+      score: sorted[i].score,
+    });
+  }
+  return res;
+};
 
 export { getFoodVisorData, getFoodPrint, getFoodMLData };
