@@ -23,7 +23,7 @@ export const Home = () => {
               }}
             />
           </Col>
-          <Col xs="12" md="6" lg="6" style={{ marginTop: "100px" }}>
+          <Col xs="12" md="6" lg="6" style={{ marginTop: "80px" }}>
             <div
               style={{
                 textAlign: "center",
@@ -32,7 +32,8 @@ export const Home = () => {
             >
               <h1
                 style={{
-                  fontWeight: "bold",
+                  fontWeight: "bolder",
+                  fontSize:'80px'
                 }}
               >
                 Welcome to CO2 Eats
