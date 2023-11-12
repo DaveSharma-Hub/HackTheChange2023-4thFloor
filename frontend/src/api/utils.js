@@ -1,75 +1,69 @@
-import axios from 'axios';
+import axios from "axios";
 
+async function getFoodVisorData() {
+  const options = {
+    method: "POST",
+    url: "https://vision.foodvisor.io/api/1.0/en/analysis/",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Api-Key codethechangefourthfloorapi",
+    },
+    data: {
+      image:
+        "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGYtczg3LW1uLTI1LTAxLnBuZw.png",
+    },
+  };
+  const options2 = {
+    method: "GET",
+    url: "https://vision.foodvisor.io/api/1.0/en/food/list",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Api-Key L49xZqGL.hLM1CxkTdNhhdZJILaCC0pnh29sFQTAF",
+    },
+  };
 
-async function getFoodVisorData(){
+  try {
+    return await axios.request(options2);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function getFoodPrint(foodItem) {
+  const options = {
+    method: "GET",
+    url: `https://foodprint.p.rapidapi.com/api/foodprint/name/${foodItem}`,
+    headers: {
+      "X-RapidAPI-Key": "43568b5614msh0a3cf45f74913b5p141c47jsn58c99c0ad788",
+      "X-RapidAPI-Host": "foodprint.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getFoodMLData(imageSrc) {
+  try {
+    imageSrc = imageSrc.substring(22);
+    console.log(imageSrc);
     const options = {
-        method: 'POST',
-        url: 'https://vision.foodvisor.io/api/1.0/en/analysis/',
-        headers: {
-            'Content-Type':'application/x-www-form-urlencoded',
-            'Authorization': 'Api-Key codethechangefourthfloorapi',
-        },
-        data:{
-            'image':'https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGYtczg3LW1uLTI1LTAxLnBuZw.png'
-        }
+      method: "POST",
+      url: "https://localhost:60266/predict",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: imageSrc,
     };
-    const options2 = {
-        method: 'GET',
-        url: 'https://vision.foodvisor.io/api/1.0/en/food/list',
-        headers: {
-            'Content-Type':'application/x-www-form-urlencoded',
-            'Authorization': 'Api-Key L49xZqGL.hLM1CxkTdNhhdZJILaCC0pnh29sFQTAF',
-        }
-    };
-
-    try{
-        return await axios.request(options2);
-    }catch(e){
-        console.log(e);
-    }
-
+    const d = await axios.request(options);
+    console.log(d);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
-async function getFoodPrint(foodItem){
-    const options = {
-        method: 'GET',
-        url: `https://foodprint.p.rapidapi.com/api/foodprint/name/${foodItem}`,
-        headers: {
-            'X-RapidAPI-Key': '43568b5614msh0a3cf45f74913b5p141c47jsn58c99c0ad788',
-            'X-RapidAPI-Host': 'foodprint.p.rapidapi.com'
-        }
-    };
-
-    try {
-        const response = await axios.request(options);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-async function getFoodMLData(imageSrc){
-    try{
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:60266/predict',
-            headers: {
-                'Content-Type':'application/json',
-            },
-            data:{
-                imagePath:imageSrc
-            }
-        };
-        const d = await axios.request(options);
-        console.log(d);
-    }catch(e){
-        console.log(e);
-    }
-}
-
-
-export {
-    getFoodVisorData,
-    getFoodPrint,
-    getFoodMLData
-}
+export { getFoodVisorData, getFoodPrint, getFoodMLData };
