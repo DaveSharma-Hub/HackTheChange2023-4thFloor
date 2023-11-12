@@ -1,6 +1,10 @@
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import { getBetterFootprintFoods, getFoodMLData, getFoodPrint } from "../api/utils";
+import {
+  getBetterFootprintFoods,
+  getFoodMLData,
+  getFoodPrint,
+} from "../api/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Container from "react-bootstrap/Container";
@@ -48,35 +52,35 @@ const UploadImagePage = () => {
     //const foodprint = await getFoodPrint(predictedLabel);
     //console.log(foodprint);
     const foodprint = [
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-      ];
+      {
+        category: "Grain",
+        footprint: 1.23,
+        group: "Grains",
+        name: "Bread",
+        rating_quality: 1,
+      },
+      {
+        category: "Grain",
+        footprint: 1.23,
+        group: "Grains",
+        name: "Bread",
+        rating_quality: 1,
+      },
+      {
+        category: "Grain",
+        footprint: 1.23,
+        group: "Grains",
+        name: "Bread",
+        rating_quality: 1,
+      },
+      {
+        category: "Grain",
+        footprint: 1.23,
+        group: "Grains",
+        name: "Bread",
+        rating_quality: 1,
+      },
+    ];
     await new Promise((res) => {
       setTimeout(res, 1000);
     });
@@ -85,7 +89,7 @@ const UploadImagePage = () => {
     const data = {
       predicted: {
         predictedLabel,
-        topScores
+        topScores,
         // :[
         //   {
         //     label:'Food1',
@@ -93,7 +97,7 @@ const UploadImagePage = () => {
         //   },
         //   {
         //     label:'Food2',
-        //     score:0.45 
+        //     score:0.45
         //   },
         //   {
         //     label:'Food3',
@@ -102,22 +106,22 @@ const UploadImagePage = () => {
         // ],
       },
       foodprint,
-      betterFootprints : [
-            {
-                category: "Grain",
-                footprint: 1.25,
-                group: "Grains",
-                name: "Bread",
-                rating_quality: 1,
-              },
-              {
-                category: "Grain",
-                footprint: 1.25,
-                group: "Grains",
-                name: "Bread",
-                rating_quality: 1,
-              },
-      ]
+      betterFootprints: [
+        {
+          category: "Grain",
+          footprint: 1.25,
+          group: "Grains",
+          name: "Bread",
+          rating_quality: 1,
+        },
+        {
+          category: "Grain",
+          footprint: 1.25,
+          group: "Grains",
+          name: "Bread",
+          rating_quality: 1,
+        },
+      ],
     };
 
     setResults(data);
@@ -177,7 +181,7 @@ const UploadImagePage = () => {
                           textAlign: "center",
                           width: "30%",
                           height: "200%",
-                          borderRadius:'20px'
+                          borderRadius: "20px",
                         }}
                         onClick={() => {
                           setVideoConstraints({
@@ -201,26 +205,30 @@ const UploadImagePage = () => {
                           textAlign: "center",
                           width: "50%",
                           height: "200%",
-                          borderRadius:'20px'
+                          borderRadius: "20px",
                         }}
                         onClick={capture}
                       >
                         Capture Photo
                       </Button>
-                    <Button
-                      style={{
-                        margin: "auto",
-                        marginTop: "25px",
-                        marginBottom: "25px",
-                        display: "block",
-                        textAlign: "center",
-                        width: "15%",
-                        borderRadius:'20px'
-                      }}
-                      onClick={()=>{bottomEnd.current?.scrollIntoView({ behavior: "smooth" })}}
-                    >
-                      Preview
-                    </Button>
+                      <Button
+                        style={{
+                          margin: "auto",
+                          marginTop: "25px",
+                          marginBottom: "25px",
+                          display: "block",
+                          textAlign: "center",
+                          width: "15%",
+                          borderRadius: "20px",
+                        }}
+                        onClick={() => {
+                          bottomEnd.current?.scrollIntoView({
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        Preview
+                      </Button>
                     </Col>
                   </Col>
                 </Row>
@@ -240,7 +248,7 @@ const UploadImagePage = () => {
                     textAlign: "center",
                     width: "500px",
                     height: "100px",
-                    borderRadius:'20px'
+                    borderRadius: "20px",
                   }}
                   onClick={() => {
                     setUseCamera(true);
@@ -260,7 +268,7 @@ const UploadImagePage = () => {
                     width: "500px",
                     height: "100px",
                     marginTop: "50px",
-                    borderRadius:'20px'
+                    borderRadius: "20px",
                   }}
                 >
                   <input
@@ -274,9 +282,16 @@ const UploadImagePage = () => {
                 </Button>
               </Col>
               <Col xs="6" md="6" lg="6">
-                <div style={{display:'flex'}}>
+                <div style={{ display: "flex" }}>
                   <div>
-                  {imgSrc && <img src={imgSrc} alt="img" style={{width:'50vw'}} ref={bottomEnd}/>}
+                    {imgSrc && (
+                      <img
+                        src={imgSrc}
+                        alt="img"
+                        style={{ width: "50vw" }}
+                        ref={bottomEnd}
+                      />
+                    )}
                   </div>
                   {imgSrc ? (
                     <Button
@@ -309,7 +324,7 @@ const UploadImagePage = () => {
       ) : (
         <div>
           <Container style={{ marginTop: "100px" }}>
-            <Results data={results} imgSrc={imgSrc}/>
+            <Results data={results} imgSrc={imgSrc} />
             {/* <Row className="justify-content-md-center">
               <Col xs="12" md="6" lg="6" style={{ marginTop: "50px" }}>
                
