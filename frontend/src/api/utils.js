@@ -94,4 +94,41 @@ const getTopScores = (scores, array) => {
   return res;
 };
 
-export { getFoodVisorData, getFoodPrint, getFoodMLData };
+async function getBetterFootprintFoods(list, category){
+    let average = 0;
+    list.forEach(({footprint})=>{
+        average += footprint;
+    });
+    average = average / list.length;
+    const res = await getFoodPrintBetterFootprint(average);
+    const finalRes = [];
+    for(let i=0;i<res.length && finalRes.length<=3;i++){
+        if(res[i].category === category){
+            finalRes.push(res[i]);
+        }
+    }
+    console.log(finalRes);
+    return finalRes.slice(0,3);
+}
+
+
+async function getFoodPrintBetterFootprint(footprint) {
+    const options = {
+      method: "GET",
+      url: `https://foodprint.p.rapidapi.com/api/foodprint/footprint/${footprint}`,
+      headers: {
+        "X-RapidAPI-Key": "c4d0f027bcmsh049640e4c64878ep193f69jsnd832dc0c20a7",
+        "X-RapidAPI-Host": "foodprint.p.rapidapi.com",
+      },
+    };
+  
+    try {
+      const response = await axios.request(options);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+export { getFoodVisorData, getFoodPrint, getFoodMLData, getBetterFootprintFoods };

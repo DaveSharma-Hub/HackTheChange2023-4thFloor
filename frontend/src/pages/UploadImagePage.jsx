@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import { getFoodMLData, getFoodPrint } from "../api/utils";
+import { getBetterFootprintFoods, getFoodMLData, getFoodPrint } from "../api/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Container from "react-bootstrap/Container";
@@ -41,50 +41,53 @@ const UploadImagePage = () => {
       setTimeout(res, 1000);
     });
     let { predictedLabel, topScores } = await getFoodMLData(imgSrc);
-    console.log(predictedLabel, topScores);
+    //console.log(predictedLabel, topScores);
     setProgressStatement("Calculating emission");
     predictedLabel = predictedLabel.replace("_", " ");
-    //const foodprint = await getFoodPrint(predictedLabel);
+    const foodprint = await getFoodPrint(predictedLabel);
     //console.log(foodprint);
+    // const foodprint = [
+    //     {
+    //       category: "Grain",
+    //       footprint: 1.23,
+    //       group: "Grains",
+    //       name: "Bread",
+    //       rating_quality: 1,
+    //     },
+    //     {
+    //       category: "Grain",
+    //       footprint: 1.23,
+    //       group: "Grains",
+    //       name: "Bread",
+    //       rating_quality: 1,
+    //     },
+    //     {
+    //       category: "Grain",
+    //       footprint: 1.23,
+    //       group: "Grains",
+    //       name: "Bread",
+    //       rating_quality: 1,
+    //     },
+    //     {
+    //       category: "Grain",
+    //       footprint: 1.23,
+    //       group: "Grains",
+    //       name: "Bread",
+    //       rating_quality: 1,
+    //     },
+    //   ];
     await new Promise((res) => {
       setTimeout(res, 1000);
     });
+    const betterFootprints = await getBetterFootprintFoods(foodprint, foodprint[0].category);
+
     const data = {
       predicted: {
         predictedLabel: predictedLabel,
         topScores: topScores,
       },
-      //foodprint,
-      foodprint: [
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-        {
-          category: "Grain",
-          footprint: 1.23,
-          group: "Grains",
-          name: "Bread",
-          rating_quality: 1,
-        },
-      ],
+      foodprint,
+      betterFootprints
     };
 
     setResults(data);

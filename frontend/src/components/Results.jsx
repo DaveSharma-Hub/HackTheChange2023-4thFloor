@@ -41,6 +41,26 @@ export default function Results({ data }) {
           }
         </Col>
       </Row>
+      <Row>
+        {
+            // eslint-disable-next-line react/prop-types
+            data.betterFootprints?.map(
+              ({ category, footprint, group, name, rating_quality }, index) => {
+                return (
+                  <Card key={index} style={{ width: "18rem" }}>
+                    <Card.Body>
+                      <Card.Title>{name}</Card.Title>
+                      <Card.Text>{category}</Card.Text>
+                      <Card.Text>{footprint}</Card.Text>
+                      <Card.Text>{rating_quality}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                );
+              }
+            )
+          }
+
+      </Row>
     </Container>
   );
 }
